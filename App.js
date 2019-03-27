@@ -16,6 +16,8 @@ import {
   Button
 } from "react-native";
 
+import ListItem from "./src/components/ListItem/ListItem";
+
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
   android:
@@ -43,7 +45,7 @@ export default class App extends Component {
 
   render() {
     const places = this.state.places.map((place, i) => (
-      <Text key={i}>{place}</Text>
+      <ListItem key={i} placeName={place} />
     ));
     return (
       <View style={styles.container}>
@@ -59,8 +61,7 @@ export default class App extends Component {
             onPress={this.submitHandler}
           />
         </View>
-        {places}
-        <View />
+        <View style={styles.listitemContainer}>{places}</View>
         <Text style={styles.instructions}>{instructions}</Text>
       </View>
     );
@@ -98,5 +99,8 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#333333",
     marginBottom: 5
+  },
+  listitemContainer: {
+    width: "100%"
   }
 });
