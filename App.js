@@ -16,6 +16,7 @@ import {
   Button
 } from "react-native";
 
+import InputForm from "./src/components/InputForm/InputForm";
 import ListItem from "./src/components/ListItem/ListItem";
 
 const instructions = Platform.select({
@@ -49,18 +50,11 @@ export default class App extends Component {
     ));
     return (
       <View style={styles.container}>
-        <View style={styles.inputContainer}>
-          <TextInput
-            value={this.state.placeName}
-            onChangeText={this.placeNameChangeHandler}
-            style={styles.placeInput}
-          />
-          <Button
-            style={styles.placeButton}
-            title="Add"
-            onPress={this.submitHandler}
-          />
-        </View>
+        <InputForm
+          placeName={this.state.placeName}
+          placeNameChangeHandler={this.placeNameChangeHandler}
+          submitHandler={this.submitHandler}
+        />
         <View style={styles.listitemContainer}>{places}</View>
         <Text style={styles.instructions}>{instructions}</Text>
       </View>
@@ -75,20 +69,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
     backgroundColor: "#FFF"
-  },
-  inputContainer: {
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center"
-  },
-  placeInput: {
-    borderWidth: 1,
-    borderColor: "red",
-    width: "70%"
-  },
-  placeButton: {
-    width: "30%"
   },
   welcome: {
     fontSize: 20,
