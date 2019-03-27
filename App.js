@@ -7,7 +7,14 @@
  */
 
 import React, { Component } from "react";
-import { Platform, StyleSheet, Text, View, TextInput } from "react-native";
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  Button
+} from "react-native";
 
 const instructions = Platform.select({
   ios: "Press Cmd+R to reload,\n" + "Cmd+D or shake for dev menu",
@@ -18,21 +25,42 @@ const instructions = Platform.select({
 
 export default class App extends Component {
   state = {
-    placeName: ""
+    placeName: "",
+    places: []
   };
 
   placeNameChangeHandler = val => {
     this.setState({ placeName: val });
   };
 
+  submitHandler = () => {
+    if (this.state.placeName === "") return;
+
+    this.setState(prevState => ({
+      places: prevState.places.concat(this.state.placeName)
+    }));
+  };
+
   render() {
+    const places = this.state.places.map((place, i) => (
+      <Text key={i}>{place}</Text>
+    ));
     return (
       <View style={styles.container}>
-        <TextInput
-          value={this.state.placeName}
-          onChangeText={this.placeNameChangeHandler}
-          style={{ width: 300, borderWidth: 1, borderColor: "black" }}
-        />
+        <View style={styles.inputContainer}>
+          <TextInput
+            value={this.state.placeName}
+            onChangeText={this.placeNameChangeHandler}
+            style={styles.placeInput}
+          />
+          <Button
+            style={styles.placeButton}
+            title="Add"
+            onPress={this.submitHandler}
+          />
+        </View>
+        {places}
+        <View />
         <Text style={styles.instructions}>{instructions}</Text>
       </View>
     );
@@ -42,9 +70,24 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    padding: 26,
+    justifyContent: "flex-start",
     alignItems: "center",
-    backgroundColor: "#F5FCFF"
+    backgroundColor: "#FFF"
+  },
+  inputContainer: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center"
+  },
+  placeInput: {
+    borderWidth: 1,
+    borderColor: "red",
+    width: "70%"
+  },
+  placeButton: {
+    width: "30%"
   },
   welcome: {
     fontSize: 20,
