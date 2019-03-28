@@ -19,15 +19,15 @@ export default class App extends Component {
 
   submitHandler = place => {
     this.setState(prevState => ({
-      places: prevState.places.concat(place)
+      places: prevState.places.concat({ key: Math.random(), value: place })
     }));
   };
 
   deleteHandler = id => {
     this.setState(prevState => {
       return {
-        places: prevState.places.filter((place, i) => {
-          return i !== id;
+        places: prevState.places.filter(place => {
+          return place.key !== id;
         })
       };
     });
