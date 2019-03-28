@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, ScrollView } from "react-native";
 
 import ListItem from "../ListItem/ListItem";
 
@@ -12,7 +12,7 @@ const PlacesOutput = props => {
     />
   ));
 
-  return <View style={styles.listitemContainer}>{places}</View>;
+  return <ScrollView style={styles.listitemContainer}>{places}</ScrollView>;
 };
 
 const styles = StyleSheet.create({
